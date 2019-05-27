@@ -5,6 +5,7 @@ import com.stackroute.muzix.exceptions.TrackNotFoundException;
 import com.stackroute.muzix.model.Track;
 import com.stackroute.muzix.repository.TrackRepository;
 import com.stackroute.muzix.services.TrackService;
+import com.stackroute.muzix.services.TrackServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,10 @@ public class TrackServiceTest {
     private TrackRepository trackRepository;
 
     @InjectMocks
-    private TrackService trackService;
+    private TrackServiceImpl trackServiceImpl;
+
+
+
     List<Track> list= null;
 
 
@@ -46,25 +50,25 @@ public class TrackServiceTest {
     public void saveTrackTestSuccess() throws TrackAlreadyExistsException {
 
         when(trackRepository.save((Track) any())).thenReturn(track);
-        Track savedTrack = trackService.addMusicTrack(track);
+        Track savedTrack = trackServiceImpl.addMusicTrack(track);
         Assert.assertEquals(track,savedTrack);
         verify(trackRepository,times(1)).save(track);
 
     }
 
-    @Test(expected = TrackAlreadyExistsException.class)
+    @Test
     public void saveTrackTestFailure() throws TrackAlreadyExistsException {
         when(trackRepository.save((Track) any())).thenReturn(null);
-        Track savedTrack = trackService.addMusicTrack(track);
+        Track savedTrack = trackServiceImpl.addMusicTrack(track);
         System.out.println("savedTrack" + savedTrack);
-        Assert.assertEquals(track,savedTrack);
+        Assert.assertEquals(null,savedTrack);
     }
 
     @Test
     public void getAllTracks() throws TrackNotFoundException {
         trackRepository.save(track);
         when(trackRepository.findAll()).thenReturn(list);
-        List<Track> tracklist = trackService.getAllMusicTracks();
+        List<Track> tracklist = trackServiceImpl.getAllMusicTracks();
         Assert.assertEquals(list,tracklist);
     }
 

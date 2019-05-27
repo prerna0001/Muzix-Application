@@ -36,16 +36,15 @@ public class TrackRepositoryTest {
     }
 
 
-
     @Test
     public void testGetAllTracks(){
-        Track t1 = new Track(70,"24 caret");
-        Track t2 = new Track(80,"perfect dual");
+        Track t1 = new Track(1,"caret");
+        Track t2 = new Track(1,"perfect dual");
         trackRepository.save(t1);
         trackRepository.save(t2);
 
         List<Track> list = trackRepository.findAll();
-        Assert.assertEquals("24 caret",list.get(0).getTrackName());
+        Assert.assertEquals("caret",list.get(0).getTrackName());
 
 
     }

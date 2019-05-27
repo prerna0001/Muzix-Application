@@ -30,8 +30,14 @@ public class TrackController {
     }
 
     @PostMapping("/songs")
-    public ResponseEntity<Track> addSong(@RequestBody Track track) {
-        return new ResponseEntity<>(trackService.addMusicTrack(track), HttpStatus.OK);
+    public ResponseEntity<?> addSong(@RequestBody Track track) throws TrackAlreadyExistsException {
+       try {
+           return new ResponseEntity<>(trackService.addMusicTrack(track), HttpStatus.CREATED);
+       }
+       catch (TrackAlreadyExistsException ex)
+       {
+           return  new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+       }
     }
 
     @PutMapping("/songs")
@@ -47,6 +53,20 @@ public class TrackController {
         return responseEntity;
     }
 
+//    @Value("$(update.message)")
+//    private String updateMessage;
+//    @PutMapping("/songs")
+//    public ResponseEntity<Track> update(@RequestBody Track track) throws TrackAlreadyExistsException{
+//        try {
+//            trackService.addMusicTrack(track);
+//            return new ResponseEntity<>(updateMessage, HttpStatus.OK);
+//        }
+//        catch(Exception ex)
+//        {
+//            ex.getMessage();
+//        }
+//        return responseEntity;
+//    }
 //    @GetMapping("/songs")
 //    public ResponseEntity<List<Track>> getAll() {
 //
@@ -57,7 +77,6 @@ public class TrackController {
     public ResponseEntity<List<Track>> getAll() {
         try {
             return new ResponseEntity<>(trackService.getAllMusicTracks(), HttpStatus.OK);
-
         }
         catch (TrackNotFoundException ex)
         {
