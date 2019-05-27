@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -15,7 +16,8 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class TrackRepositoryTest {
+@AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)
+public class TrackRepositoryTestIT {
 
     @Autowired
     private TrackRepository trackRepository;
@@ -26,6 +28,7 @@ public class TrackRepositoryTest {
     {
         track = new Track();
         track.setTrackName("ple!!");
+        track.setTrackId(3);
 
     }
 
@@ -37,9 +40,9 @@ public class TrackRepositoryTest {
 
 
     @Test
-    public void testGetAllTracks(){
+    public void GetAllTracksTest(){
         Track t1 = new Track(1,"caret");
-        Track t2 = new Track(1,"perfect dual");
+        Track t2 = new Track(2,"perfect dual");
         trackRepository.save(t1);
         trackRepository.save(t2);
 
@@ -49,5 +52,21 @@ public class TrackRepositoryTest {
 
     }
 
+
+    @Test
+    public void SaveTrackTest(){
+        trackRepository.save(track);
+        Track fetchTrack = trackRepository.findById(track.getTrackId()).get();
+        Assert.assertEquals(3,fetchTrack.getTrackId());
+
+    }
+
+    @Test
+    public void SaveTrackFailureTest(){
+        Track testTrack = new Track(60,"Shake");
+        trackRepository.save(track);
+        Track fetchTrack = trackRepository.findById(track.getTrackId()).get();
+        Assert.assertNotSame(testTrack,track);
+    }
 
 }
