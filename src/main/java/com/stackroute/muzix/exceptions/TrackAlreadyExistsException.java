@@ -4,10 +4,10 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class TrackAlreadyExistsException extends Exception {
-    private String msg;
+    private String message;
 
-    public TrackAlreadyExistsException(String msg) {
-        super(msg);
-        this.msg = msg;
+    public TrackAlreadyExistsException(String message) {
+        super(message);
+        this.message = message;
     }
 }

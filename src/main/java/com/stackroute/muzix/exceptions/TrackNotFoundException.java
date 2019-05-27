@@ -4,10 +4,10 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class TrackNotFoundException extends Exception {
-    public String msg;
+    public String message;
 
-    public TrackNotFoundException(String msg) {
-        super(msg);
-        this.msg = msg;
+    public TrackNotFoundException(String message) {
+        super(message);
+        this.message = message;
     }
 }

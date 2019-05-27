@@ -17,38 +17,59 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class TrackController {
     @Autowired
-    private TrackServiceImpl trackServiceImpl;
+    private TrackService trackService;
     ResponseEntity responseEntity;
-    public TrackServiceImpl getTrackService() {
-        return trackServiceImpl;
+    public TrackService getTrackService() {
+
+        return trackService;
     }
 
-    public void setTrackService(TrackServiceImpl trackService) {
-        this.trackServiceImpl = trackService;
+    public void setTrackService(TrackService trackService)
+    {
+        this.trackService = trackService;
     }
 
     @PostMapping("/songs")
     public ResponseEntity<Track> addSong(@RequestBody Track track) {
-        return new ResponseEntity<>(trackServiceImpl.addMusicTrack(track), HttpStatus.OK);
+        return new ResponseEntity<>(trackService.addMusicTrack(track), HttpStatus.OK);
     }
 
     @PutMapping("/songs")
     public ResponseEntity<Track> update(@RequestBody Track track) throws TrackAlreadyExistsException{
         try {
 
-            return new ResponseEntity<>(trackServiceImpl.addMusicTrack(track), HttpStatus.OK);
+            return new ResponseEntity<>(trackService.addMusicTrack(track), HttpStatus.OK);
         }
         catch(Exception ex)
         {
-            return responseEntity;
-
+            ex.getMessage();
         }
+        return responseEntity;
     }
 
-    @GetMapping("/songs")
-    public ResponseEntity<List<Track>> addSong() {
+//    @GetMapping("/songs")
+//    public ResponseEntity<List<Track>> getAll() {
+//
+//        return new ResponseEntity<>(trackService.getAllMusicTracks(), HttpStatus.OK);
+//    }
 
-        return new ResponseEntity<>(trackServiceImpl.getAllMusicTracks(), HttpStatus.OK);
+    @GetMapping("/songs")
+    public ResponseEntity<List<Track>> getAll() {
+        try {
+            return new ResponseEntity<>(trackService.getAllMusicTracks(), HttpStatus.OK);
+
+        }
+        catch (TrackNotFoundException ex)
+        {
+            ex.getMessage();
+        }
+        catch(Exception ex)
+        {
+            ex.getMessage();
+        }
+
+        return responseEntity;
+
     }
 
     @Value("$(delete.message)")
@@ -56,7 +77,7 @@ public class TrackController {
     @DeleteMapping("/songs")
     public ResponseEntity<String> deleteSong(@RequestBody Track track) throws TrackNotFoundException{ //id name both required to ex query
         try {
-            trackServiceImpl.deleteMusicTrack(track.getTrackId());
+            trackService.deleteMusicTrack(track.getTrackId());
             return new ResponseEntity<>(deleteMessage, HttpStatus.OK);
         }
         catch(TrackNotFoundException ex)
@@ -69,7 +90,7 @@ public class TrackController {
 
     @GetMapping(value = "/songs/{trackName}")
     public ResponseEntity<List<Track>> getTrackByName(@PathVariable("trackName") String trackName) throws TrackNotFoundException {
-        List<Track> trackOne = trackServiceImpl.getTrackByName(trackName);
+        List<Track> trackOne = trackService.getTrackByName(trackName);
         return new ResponseEntity<List<Track>>(trackOne, HttpStatus.OK);
     }
 

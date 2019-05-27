@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TrackService {
     public Track addMusicTrack(Track track);
-    public List<Track> getAllMusicTracks();
+    public List<Track> getAllMusicTracks() throws TrackNotFoundException;
     public void deleteMusicTrack(int trackId) throws TrackNotFoundException;
     public List<Track> getTrackByName(String trackName) throws TrackNotFoundException;
 }
