@@ -1,6 +1,7 @@
 package com.stackroute.muzix.service;
 
 import com.stackroute.muzix.exceptions.TrackAlreadyExistsException;
+import com.stackroute.muzix.exceptions.TrackNotFoundException;
 import com.stackroute.muzix.model.Track;
 import com.stackroute.muzix.repository.TrackRepository;
 import com.stackroute.muzix.services.TrackService;
@@ -55,22 +56,17 @@ public class TrackServiceTest {
     public void saveTrackTestFailure() throws TrackAlreadyExistsException {
         when(trackRepository.save((Track) any())).thenReturn(null);
         Track savedTrack = trackService.addMusicTrack(track);
-        System.out.println("savedUser" + savedTrack);
+        System.out.println("savedTrack" + savedTrack);
         Assert.assertEquals(track,savedTrack);
     }
 
     @Test
-    public void getAllTracks(){
-
+    public void getAllTracks() throws TrackNotFoundException {
         trackRepository.save(track);
         when(trackRepository.findAll()).thenReturn(list);
         List<Track> tracklist = trackService.getAllMusicTracks();
         Assert.assertEquals(list,tracklist);
     }
-
-
-
-
 
 }
 

@@ -1,7 +1,6 @@
 package com.stackroute.muzix.repository;
 
 import com.stackroute.muzix.model.Track;
-import org.apache.catalina.User;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
