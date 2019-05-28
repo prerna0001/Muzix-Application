@@ -5,13 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+//import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.lang.annotation.Documented;
 
-@Entity
+@Document(collection="track")
+//@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +23,7 @@ public class Track {
 
 
     @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     int trackId;
     String trackName;
 

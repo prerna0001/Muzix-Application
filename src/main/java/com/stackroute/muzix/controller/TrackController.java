@@ -107,11 +107,11 @@ public class TrackController {
     }
 
 
-    @GetMapping(value = "/songs/{trackName}")
-    public ResponseEntity<List<Track>> getTrackByName(@PathVariable("trackName") String trackName) throws TrackNotFoundException {
-        List<Track> trackOne = trackService.getTrackByName(trackName);
-        return new ResponseEntity<List<Track>>(trackOne, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/songs/{trackName}")
+//    public ResponseEntity<List<Track>> getTrackByName(@PathVariable("trackName") String trackName) throws TrackNotFoundException {
+//        List<Track> trackOne = trackService.getTrackByName(trackName);
+//        return new ResponseEntity<List<Track>>(trackOne, HttpStatus.OK);
+//    }
 
 }
 
