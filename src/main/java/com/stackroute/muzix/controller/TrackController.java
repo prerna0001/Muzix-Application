@@ -1,3 +1,5 @@
+//TrackController class to controll working of model class
+
 package com.stackroute.muzix.controller;
 
 import com.stackroute.muzix.exceptions.TrackAlreadyExistsException;
@@ -30,7 +32,7 @@ public class TrackController {
     }
 
     @PostMapping("/songs")
-    public ResponseEntity<?> addSong(@RequestBody Track track) throws TrackAlreadyExistsException {
+    public ResponseEntity<?> addSong(@RequestBody Track track) throws TrackAlreadyExistsException { //adding any song to our database
        try {
            return new ResponseEntity<>(trackService.addMusicTrack(track), HttpStatus.CREATED);
        }
@@ -41,7 +43,7 @@ public class TrackController {
     }
 
     @PutMapping("/songs")
-    public ResponseEntity<Track> update(@RequestBody Track track) throws TrackAlreadyExistsException{
+    public ResponseEntity<Track> update(@RequestBody Track track) throws TrackAlreadyExistsException{ //updating any song in Track
         try {
 
             return new ResponseEntity<>(trackService.addMusicTrack(track), HttpStatus.OK);
@@ -74,7 +76,7 @@ public class TrackController {
 //    }
 
     @GetMapping("/songs")
-    public ResponseEntity<List<Track>> getAll() {
+    public ResponseEntity<List<Track>> getAll() { // get mapping to show allthe tracks
         try {
             return new ResponseEntity<>(trackService.getAllMusicTracks(), HttpStatus.OK);
         }

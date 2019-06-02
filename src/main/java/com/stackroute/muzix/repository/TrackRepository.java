@@ -4,7 +4,6 @@ import com.stackroute.muzix.model.Track;
 //import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
-
 import java.util.List;
 
 public interface TrackRepository extends MongoRepository<Track,Integer> {

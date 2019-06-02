@@ -1,3 +1,4 @@
+//ResponseForError class used in Global exception class
 package com.stackroute.muzix.responses;
 
 public class ResponseForError {
