@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.List;
 
 
@@ -36,14 +35,14 @@ public class TrackRepositoryTestIT {
     }
 
     @After
-    public void tearDown(){
+    public void testDeleteAll(){
 
         trackRepository.deleteAll();
     }
 
 
     @Test
-    public void GetAllTracksTest(){
+    public void testGetAllTracks(){
         Track t1 = new Track(1,"caret");
         Track t2 = new Track(2,"perfect dual");
         trackRepository.save(t1);
@@ -57,7 +56,7 @@ public class TrackRepositoryTestIT {
 
 
     @Test
-    public void SaveTrackTest(){
+    public void testSaveTrack(){
         trackRepository.save(track);
         System.out.println(track);
         Track fetchTrack = trackRepository.findById(track.getTrackId()).get();
@@ -67,7 +66,7 @@ public class TrackRepositoryTestIT {
     }
 
     @Test
-    public void SaveTrackFailureTest(){
+    public void testSaveTrackFailure(){
         Track testTrack = new Track(60,"Shake");
         trackRepository.save(track);
         Track fetchTrack = trackRepository.findById(track.getTrackId()).get();
