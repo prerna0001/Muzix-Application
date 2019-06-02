@@ -15,7 +15,7 @@ import java.lang.annotation.Documented;
 
 @Document(collection="track")
 //@Entity
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -26,7 +26,6 @@ public class Track {
 //    @GeneratedValue(strategy = GenerationType.AUTO)
     int trackId;
     String trackName;
-
 
 
     //    public Track() {
