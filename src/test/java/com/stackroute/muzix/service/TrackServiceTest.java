@@ -65,7 +65,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void getAllTracks() throws TrackNotFoundException {
+    public void getAllTracksTest() throws TrackNotFoundException {
         trackRepository.save(track);
         when(trackRepository.findAll()).thenReturn(list);
         List<Track> tracklist = trackServiceImpl.getAllMusicTracks();

@@ -6,7 +6,6 @@ import com.stackroute.muzix.exceptions.TrackAlreadyExistsException;
 import com.stackroute.muzix.exceptions.TrackNotFoundException;
 import com.stackroute.muzix.model.Track;
 import com.stackroute.muzix.services.TrackService;
-import com.stackroute.muzix.services.TrackServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -40,13 +39,22 @@ public class TrackController {
        {
            return  new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
        }
+       catch(Exception ex)
+       {
+           ex.getMessage();
+       }
+        return responseEntity;
     }
 
     @PutMapping("/songs")
-    public ResponseEntity<Track> update(@RequestBody Track track) throws TrackAlreadyExistsException{ //updating any song in Track
+    public ResponseEntity<?> update(@RequestBody Track track) throws TrackAlreadyExistsException{ //updating any song in Track
         try {
 
             return new ResponseEntity<>(trackService.addMusicTrack(track), HttpStatus.OK);
+        }
+        catch (TrackAlreadyExistsException ex)
+        {
+            return  new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
         }
         catch(Exception ex)
         {
@@ -55,25 +63,6 @@ public class TrackController {
         return responseEntity;
     }
 
-//    @Value("$(update.message)")
-//    private String updateMessage;
-//    @PutMapping("/songs")
-//    public ResponseEntity<Track> update(@RequestBody Track track) throws TrackAlreadyExistsException{
-//        try {
-//            trackService.addMusicTrack(track);
-//            return new ResponseEntity<>(updateMessage, HttpStatus.OK);
-//        }
-//        catch(Exception ex)
-//        {
-//            ex.getMessage();
-//        }
-//        return responseEntity;
-//    }
-//    @GetMapping("/songs")
-//    public ResponseEntity<List<Track>> getAll() {
-//
-//        return new ResponseEntity<>(trackService.getAllMusicTracks(), HttpStatus.OK);
-//    }
 
     @GetMapping("/songs")
     public ResponseEntity<List<Track>> getAll() { // get mapping to show allthe tracks
