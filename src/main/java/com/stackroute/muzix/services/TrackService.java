@@ -14,5 +14,5 @@ public interface TrackService {
     public Track addMusicTrack(Track track) throws TrackAlreadyExistsException;
     public List<Track> getAllMusicTracks() throws TrackNotFoundException;
     public void deleteMusicTrack(int trackId) throws TrackNotFoundException;
-//    public List<Track> getTrackByName(String trackName) throws TrackNotFoundException;
+
 }

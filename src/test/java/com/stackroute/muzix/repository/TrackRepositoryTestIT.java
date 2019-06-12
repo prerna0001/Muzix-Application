@@ -50,10 +50,7 @@ public class TrackRepositoryTestIT {
 
         List<Track> list = trackRepository.findAll();
         Assert.assertEquals("caret",list.get(0).getTrackName());
-
-
     }
-
 
     @Test
     public void testSaveTrack(){

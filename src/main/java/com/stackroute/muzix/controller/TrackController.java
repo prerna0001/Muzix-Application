@@ -17,9 +17,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class TrackController {
-    @Autowired
+
     private TrackService trackService;
     ResponseEntity responseEntity;
+
+    @Autowired
+    public TrackController(TrackService trackService) {
+        this.trackService = trackService;
+    }
+
     public TrackService getTrackService() {
 
         return trackService;
@@ -97,12 +103,6 @@ public class TrackController {
         return responseEntity;
     }
 
-
-//    @GetMapping(value = "/songs/{trackName}")
-//    public ResponseEntity<List<Track>> getTrackByName(@PathVariable("trackName") String trackName) throws TrackNotFoundException {
-//        List<Track> trackOne = trackService.getTrackByName(trackName);
-//        return new ResponseEntity<List<Track>>(trackOne, HttpStatus.OK);
-//    }
 
 }
 
